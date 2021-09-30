@@ -15,7 +15,6 @@ function Login(props) {
   };
 
   const handleSubmit = (event) => {
-    users.push({ user: user, password: password });
     console.log(users);
   };
   return (
