@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
-import Navi from "./components/Navi";
+
 import Register from "./pages/Register";
 import { HashRouter, Route, Switch } from "react-router-dom";
 
@@ -11,7 +11,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   return (
     <HashRouter>
-      <Navi />
       <Switch>
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
