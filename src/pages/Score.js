@@ -20,11 +20,15 @@ function Score(props) {
       <h2>Your score was {count}/6</h2>
       <Row fluid="s">
         <Col md="auto">
-          <Button onClick={playAgain}>Play again?</Button>
+          <Button style={{ margin: "10px" }} onClick={playAgain}>
+            Play again?
+          </Button>
         </Col>
 
         <Col md="auto">
-          <Button onClick={returnHome}>Go to Home</Button>
+          <Button style={{ margin: "10px" }} onClick={returnHome}>
+            Go to Home
+          </Button>
         </Col>
       </Row>
     </Container>
