@@ -16,22 +16,40 @@ function Score(props) {
     history.push("/");
   };
   return (
-    <Container fluid="xl">
-      <h2>Your score was {count}/6</h2>
-      <Row fluid="s">
-        <Col md="auto">
-          <Button style={{ margin: "10px" }} onClick={playAgain}>
-            Play again?
-          </Button>
-        </Col>
+    <>
+      <Container
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "200px",
+        }}
+        fluid="xl"
+      >
+        <h2>Your score was {count}/6</h2>
+      </Container>
 
-        <Col md="auto">
-          <Button style={{ margin: "10px" }} onClick={returnHome}>
-            Go to Home
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+      <Container
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+        fluid="xl"
+      >
+        <Row fluid="s">
+          <Col xs="auto">
+            <Button style={{ margin: "10px" }} onClick={playAgain}>
+              Play again?
+            </Button>
+          </Col>
+
+          <Col xs="auto">
+            <Button style={{ margin: "10px" }} onClick={returnHome}>
+              Go to Home
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 
