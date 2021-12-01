@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import user from "../user";
 
 function Navi(props) {
-  const [username, setName] = useState(user[0].currUser);
-  const handleLogout = () => {
-    user.push({ currUser: "" });
-    user.splice(0, 1);
-    setName("");
+  let handleLogout = () => {
+    props.handleLogout();
   };
   return (
     <Navbar
@@ -22,7 +18,7 @@ function Navi(props) {
           <Nav.Link as={Link} to="/">
             Home
           </Nav.Link>
-          {username === "" && (
+          {!props.username && (
             <>
               <Nav.Link as={Link} to="/login">
                 Login
@@ -32,10 +28,10 @@ function Navi(props) {
               </Nav.Link>
             </>
           )}
-          {username !== "" && (
+          {props.username && (
             <>
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-              <Nav.Link>Hello, {username}</Nav.Link>
+              <Nav.Link>Hello, {props.username}</Nav.Link>
             </>
           )}
         </Nav>

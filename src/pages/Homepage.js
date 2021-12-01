@@ -5,9 +5,12 @@ import Navi from "../components/Navi";
 import { Container } from "react-bootstrap";
 
 function Homepage(props) {
+  let handleLogout = () => {
+    props.handleLogout();
+  };
   return (
     <Container fluid="l">
-      <Navi />
+      <Navi username={props.username} handleLogout={handleLogout} />
       <ImgLayout />
     </Container>
   );

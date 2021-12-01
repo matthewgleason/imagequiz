@@ -4,10 +4,12 @@ import users from "../users";
 import { useHistory } from "react-router-dom";
 import user from "../user";
 import Navi from "../components/Navi";
+import api from "../communication/api";
 
 function Register(props) {
   const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
+  //const []
 
   const history = useHistory();
 
@@ -21,20 +23,15 @@ function Register(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].user === username && users[i].password === password) {
-        setUser("");
-        setPassword("");
-        return alert("This user already exists!");
+    api.signup(username, username, password).then((x) => {
+      if (x.done) {
+        console.log(x.done);
+        history.push("/");
+      } else {
+        console.log("Customer could not be saved");
+        alert("Customer could not be saved");
       }
-    }
-    users.push({ user: username, password: password });
-    history.push("/");
-    console.log(users);
-    user[0].currUser = username;
-    setUser("");
-    setPassword("");
-    return;
+    });
   };
   return (
     <>

@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import users from "../users";
 import user from "../user";
 import Navi from "../components/Navi";
+import api from "../communication/api";
 
 function Login(props) {
   const [username, setUser] = useState("");
@@ -20,21 +21,15 @@ function Login(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].user === username && users[i].password === password) {
+    api.signin(username, password).then((x) => {
+      if (x.done) {
+        console.log(x);
+        props.loggedin(username);
         history.push("/");
-        user[0].currUser = username;
-        setPassword("");
-        user[0].currUser = username;
-        setUser("");
-        console.log("succesful login");
-        return;
+      } else {
+        alert("User was not found.");
       }
-    }
-    setUser("");
-    setPassword("");
-
-    return alert("This is not a user!");
+    });
   };
   return (
     <>
