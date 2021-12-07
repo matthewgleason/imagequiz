@@ -1,16 +1,24 @@
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import { Container, Button, Row, Col } from "react-bootstrap";
+import api from "./../communication/api";
 
 function Score(props) {
   const location = useLocation();
   const history = useHistory();
   const count = location.state.score;
   const quiz = location.state.quizName;
+  api
+    .setScore(
+      count,
+      localStorage.getItem("quiz_id"),
+      localStorage.getItem("customer")
+    )
+    .then((x) => console.log(x))
+    .catch((e) => console.log(e));
   console.log(count, quiz);
   const playAgain = (e) => {
-    console.log(quiz);
-    history.push({ pathname: "/quiz", state: { quizName: quiz } });
+    history.push({ pathname: "/quiz/:id", state: { quizName: quiz } });
   };
   const returnHome = (e) => {
     history.push("/");

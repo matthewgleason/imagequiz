@@ -11,7 +11,7 @@ function Homepage(props) {
   return (
     <Container fluid="l">
       <Navi username={props.username} handleLogout={handleLogout} />
-      <ImgLayout />
+      <ImgLayout quiz_id={props.quiz_id} />
     </Container>
   );
 }

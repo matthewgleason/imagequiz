@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import quizzes from "../quiz/data";
 import { useLocation, useHistory } from "react-router-dom";
 import { Container, Col, Row, Image, Button, Form } from "react-bootstrap";
+import api from "./../communication/api";
 
 function Quiz(props) {
   const location = useLocation();
   const history = useHistory();
   let answers = [];
   var count = 0;
+  const [quiz, setQuiz] = useState([]);
 
-  let quiz = quizzes.find((x) =>
-    x.find((y) => y.answer === location.state.quizName)
-  );
+  useEffect(() => {
+    if (quiz.length === 0) {
+      api.getQuiz(localStorage.getItem("quiz_id")).then((x) => setQuiz(x));
+    }
+  });
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -45,6 +49,7 @@ function Quiz(props) {
                 var r = Math.floor(Math.random() * 3);
                 if (nums.indexOf(r) === -1) nums.push(r);
               }
+              let choices = item.choices.split(",");
               return (
                 <Col style={{ margin: "30px" }} xs="auto" key={item.answer}>
                   <h3>Question {index + 1}</h3>
@@ -56,8 +61,8 @@ function Quiz(props) {
                       name={`${index}`}
                       type="radio"
                       onChange={choiceChanged}
-                      label={item.choices[nums[0]]}
-                      value={item.choices[nums[0]]}
+                      label={choices[nums[0]]}
+                      value={choices[nums[0]]}
                       style={{ marginLeft: "10px" }}
                     />
 
@@ -65,17 +70,17 @@ function Quiz(props) {
                       name={`${index}`}
                       type="radio"
                       onChange={choiceChanged}
-                      label={item.choices[nums[1]]}
-                      value={item.choices[nums[1]]}
+                      label={choices[nums[1]]}
+                      value={choices[nums[1]]}
                       style={{ marginLeft: "10px" }}
                     />
 
                     <Form.Check
                       name={`${index}`}
                       type="radio"
-                      label={item.choices[nums[2]]}
+                      label={choices[nums[2]]}
                       onChange={choiceChanged}
-                      value={item.choices[nums[2]]}
+                      value={choices[nums[2]]}
                       style={{ marginLeft: "10px" }}
                     />
                   </Row>

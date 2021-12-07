@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [username, setName] = useState(localStorage.getItem("customer"));
+  const [quiz, setQuiz] = useState(localStorage.getItem("quiz_id"));
   const handleLogout = () => {
     localStorage.removeItem("customer");
     setName(null);
@@ -21,6 +22,10 @@ function App() {
     console.log(email);
     localStorage.setItem("customer", email);
   };
+  let quiz_id = (id) => {
+    setQuiz(id);
+    localStorage.setItem("quiz_id", id);
+  };
   return (
     <HashRouter>
       <Switch>
@@ -28,12 +33,18 @@ function App() {
         <Route path="/login">
           <Login loggedin={loggedin} />
         </Route>
-        <PrivateRoute path="/quiz">
+        <PrivateRoute path="/quiz/:id">
           <Quiz />
         </PrivateRoute>
-        <Route path="/score" component={Score} />
+        <Route path="/score">
+          <Score quiz_id={quiz_id} />
+        </Route>
         <Route exact path="/">
-          <Homepage username={username} handleLogout={handleLogout} />
+          <Homepage
+            quiz_id={quiz_id}
+            username={username}
+            handleLogout={handleLogout}
+          />
         </Route>
       </Switch>
     </HashRouter>
