@@ -25,7 +25,7 @@ function Register(props) {
     event.preventDefault();
     api.signup(username, username, password).then((x) => {
       if (x.done) {
-        console.log(x.done);
+        //console.log(x.done);
         history.push("/");
       } else {
         console.log("Customer could not be saved");

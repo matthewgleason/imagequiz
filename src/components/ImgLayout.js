@@ -12,7 +12,10 @@ function ImgLayout(props) {
   const [flowers, setFlowers] = useState([]);
   useEffect(() => {
     if (flowers.length === 0) {
-      api.getFlowers().then((x) => setFlowers(x));
+      api
+        .getFlowers()
+        .then((x) => setFlowers(x))
+        .catch((e) => window.location.reload());
     }
   });
   return (
