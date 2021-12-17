@@ -26,6 +26,9 @@ function Navi(props) {
               <Nav.Link as={Link} to="/register">
                 Register
               </Nav.Link>
+              <Nav.Link href="http://localhost:4002/login/twitter">
+                Sign In with Twitter
+              </Nav.Link>
             </>
           )}
           {props.username && (

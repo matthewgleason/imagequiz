@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useParams, useHistory, useEffect } from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import api from "./communication/api";
 
 function App() {
   const [username, setName] = useState(localStorage.getItem("customer"));
@@ -38,6 +39,9 @@ function App() {
         </PrivateRoute>
         <Route path="/score">
           <Score quiz_id={quiz_id} />
+        </Route>
+        <Route exact path="/twitter/:username/:name">
+          <Twitter onAuthenticated={loggedin} />
         </Route>
         <Route exact path="/">
           <Homepage
@@ -70,6 +74,20 @@ let PrivateRoute = ({ children, ...rest }) => {
       }
     />
   );
+};
+
+let Twitter = (props) => {
+  let { username, name } = useParams();
+  let history = useHistory();
+  useEffect(() => {
+    console.log("in twitter ...");
+    api.verifyTwitter(username).then((x) => {
+      console.log(x);
+      if (x.done) {
+        props.loggedin(name);
+      }
+    });
+  });
 };
 
 export default App;

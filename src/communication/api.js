@@ -8,6 +8,8 @@ let signup = (name, email, password) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
+      "Access-Control-Allow-Credentials": true,
     },
     body: JSON.stringify({ name, email, password }),
   }).then((x) => x.json());
@@ -18,6 +20,8 @@ let signin = (email, password) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
+      "Access-Control-Allow-Credentials": true,
     },
     body: JSON.stringify({ email, password }),
   }).then((x) => x.json());
@@ -32,11 +36,25 @@ let getQuiz = (id) => {
   }).then((x) => x.json());
 };
 
+let verifyTwitter = (username) => {
+  return fetch(`${baseURL}/twitter/${username}`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "Access-Control-Allow-Credentials": true,
+    },
+  }).then((x) => x.json());
+};
+
 let setScore = (score, quizid, quiztaker) => {
   return fetch(`${baseURL}/score`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
+      "Access-Control-Allow-Credentials": true,
     },
     body: JSON.stringify({ score, quizid, quiztaker }),
   }).then((x) => x.json());
@@ -48,6 +66,7 @@ let api = {
   signin: signin,
   getQuiz: getQuiz,
   setScore: setScore,
+  verifyTwitter: verifyTwitter,
 };
 
 export default api;
